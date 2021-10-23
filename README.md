@@ -6,9 +6,9 @@ Make a game that I don't want to make.
 
 ## Tech used for this project.
 
--HTML
--CSS
--JavaScript
+- HTML
+- CSS
+- JavaScript
 
 ## MVP GOALS
 
