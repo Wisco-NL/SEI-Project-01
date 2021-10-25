@@ -92,8 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  //Stop game pieces from going through the floor
-  const floor = () => {
+  //Stop game pieces from going through the game board floor
+  const gameBoardFloor = () => {
     if (
       current.some((index) => squares[currentPosition + index + 10].classList.contains('floor'))
     ) {
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     undrawGamePiece();
     currentPosition += 10;
     drawGamePiece();
-    floor();
+    gameBoardFloor();
   };
 
   moveTimer = setInterval(down, 1000);

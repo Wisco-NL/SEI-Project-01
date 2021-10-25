@@ -35,7 +35,7 @@ img {
 }
 
 body {
-  background-image: url('/images/tetris-background.jpg');
+  background-image: url('../images/tetris-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   z-index: -1;
