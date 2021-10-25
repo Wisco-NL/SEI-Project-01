@@ -60,13 +60,12 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: #000;
+  background-color: rgb(10, 10, 10);
 }
 
 .gameboard div {
   height: 20px;
   width: 20px;
-  border: 1px solid #fff;
 }
 
 .preview-grid {
@@ -75,7 +74,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   margin-left: 70px;
-  background-color: #000;
+  background-color: rgb(10, 10, 10);
 }
 
 .preview-grid div {
@@ -85,5 +84,43 @@ body {
 }
 
 .tetromino {
-  background-color: pink;
+  background-image: url('../images/blue-tetromino.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.tetromino1 {
+  background-image: url('../images/grey-tetromino.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.tetromino3 {
+  background-image: url('../images/purple-tetromino.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.tetromino4 {
+  background-image: url('../images/green-tetromino.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.tetromino5 {
+  background-image: url('../images/pink-tetromino.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.tetromino6 {
+  background-image: url('../images/yellow-tetromino');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.tetromino7 {
+  background-image: url('../images/red-tetromino.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
