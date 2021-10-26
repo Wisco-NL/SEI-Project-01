@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
   //Drawing the game pieces
   const lTetromino = [
-    [0, 1, 11, 21],
+    [0, 0, 1, 11, 21, 0],
     [10, 11, 12, 2],
     [1, 11, 21, 22],
     [10, 20, 11, 12],
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     oTetromino,
     iTetromino,
   ];
-  let currentPosition = 3;
+  let currentPosition = 4;
   let currentRotation = 0;
 
   //Picks random tetromino and displays in the first rotation position
@@ -100,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
       current.forEach((index) => squares[currentPosition + index].classList.add('floor'));
       //Start a new tetromino falling
       random = Math.floor(Math.random() * tetrominoes.length);
-      current = Math.floor(Math.random() * tetrominoes.length);
       current = tetrominoes[random][currentRotation];
       currentPosition = 4;
       drawGamePiece();
@@ -160,7 +159,28 @@ document.addEventListener('DOMContentLoaded', () => {
       //if the current rotation gets to 4, make it go back to 0
       currentRotation = 0;
     }
+    //checked the current array of tetromino and currentPosition
+    if (currentPosition % 10 === 9) {
+      currentPosition += 1;
+    } else if (
+      current === [10, 11, 12, 13] ||
+      current === [1, 11, 21, 31] ||
+      currentPosition % 10 === 8
+    ) {
+      currentPosition -= 2;
+    } else if (
+      current === [10, 11, 12, 13] ||
+      current === [1, 11, 21, 31] ||
+      currentPosition % 10 === 7
+    ) {
+      currentPosition -= 1;
+    } else if ((currentPosition + 1) % 10 === 8 || (currentPosition + 1) % 10 === 7) {
+      currentPosition -= 1;
+    }
+    console.log(current);
     current = tetrominoes[random][currentRotation];
+    console.log(currentPosition);
+
     drawGamePiece();
   };
 });
