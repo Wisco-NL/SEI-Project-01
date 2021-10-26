@@ -107,6 +107,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  //assign keyCodes
+  const movement = (e) => {
+    if (e.keyCode === 37) {
+      left();
+    } else if (e.keyCode === 38) {
+      rotate();
+    } else if (e.keyCode === 39) {
+      right();
+    } else if (e.keyCode === 40) {
+      down();
+    }
+  };
+  document.addEventListener('keyup', movement);
+
   // Make the game pieces move down every second
   const down = () => {
     undrawGamePiece();
@@ -116,4 +130,37 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   moveTimer = setInterval(down, 1000);
+
+  //Moving the tetromino left
+  const left = () => {
+    undrawGamePiece();
+    const leftEdge = current.some((index) => (currentPosition + index) % 10 === 0);
+    if (!leftEdge) currentPosition -= 1;
+    if (current.some((index) => squares[currentPosition + index].classList.contains('floor'))) {
+      currentPosition += 1;
+    }
+    drawGamePiece();
+  };
+
+  const right = () => {
+    undrawGamePiece();
+    const rightEdge = current.some((index) => (currentPosition + index) % 10 === 10 - 1);
+    if (!rightEdge) currentPosition += 1;
+    if (current.some((index) => squares[currentPosition + index].classList.contains('floor'))) {
+      currentPosition -= 1;
+    }
+    drawGamePiece();
+  };
+
+  //spin the tetromino
+  const rotate = () => {
+    undrawGamePiece();
+    currentRotation++;
+    if (currentRotation === current.length) {
+      //if the current rotation gets to 4, make it go back to 0
+      currentRotation = 0;
+    }
+    current = tetrominoes[random][currentRotation];
+    drawGamePiece();
+  };
 });
