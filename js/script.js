@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const gameboard = document.querySelector('.gameboard');
   let squares = Array.from(document.querySelectorAll('.gameboard div'));
+  let nextRandom = 0;
   const colors = [
     'url(images/blue-tetromino.png)',
     'url(images/grey-tetromino.png)',
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
   //Drawing the game pieces
   const lTetromino = [
-    [0, 0, 1, 11, 21, 0],
+    [0, 1, 11, 21],
     [10, 11, 12, 2],
     [1, 11, 21, 22],
     [10, 20, 11, 12],
@@ -73,7 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentRotation = 0;
 
   //Picks random tetromino and displays in the first rotation position
-  let random = Math.floor(Math.random() * tetrominoes.length);
+  //nextRandom passes tetromino from preview to game board
+  let random = nextRandom;
+  nextRandom = Math.floor(Math.random() * tetrominoes.length);
   let current = tetrominoes[random][currentRotation];
 
   //Drawing the Tetromino
@@ -103,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
       current = tetrominoes[random][currentRotation];
       currentPosition = 4;
       drawGamePiece();
+      previewShape();
     }
   };
 
@@ -125,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     undrawGamePiece();
     currentPosition += 10;
     drawGamePiece();
+    previewShape();
     gameBoardFloor();
   };
 
@@ -143,12 +148,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const right = () => {
     undrawGamePiece();
-    const rightEdge = current.some((index) => (currentPosition + index) % 10 === 10 - 1);
+    const rightEdge = current.some((index) => (currentPosition + index) % 10 === 9);
     if (!rightEdge) currentPosition += 1;
     if (current.some((index) => squares[currentPosition + index].classList.contains('floor'))) {
       currentPosition -= 1;
     }
     drawGamePiece();
+  };
+
+  const checkRotation = () => {
+    // Get current position
+    //check if the game piece is on the left side
+    if ((currentPosition + 1) % 10 < 4) {
+      //if on the left side then use code to stop wrap around to right side. Code from line 147
+      if (current.some((index) => (currentPosition + index) % 10 === 9)) {
+        currentPosition += 1;
+        //Check game pieces incase pieces needs more then one movement
+        checkRotation(currentPosition);
+      }
+    } else if (currentPosition % 10 > 5) {
+      if (current.some((index) => (currentPosition + index) % 10 === 0)) {
+        currentPosition -= 1;
+        checkRotation(currentPosition);
+      }
+    }
   };
 
   //spin the tetromino
@@ -159,28 +182,37 @@ document.addEventListener('DOMContentLoaded', () => {
       //if the current rotation gets to 4, make it go back to 0
       currentRotation = 0;
     }
-    //checked the current array of tetromino and currentPosition
-    if (currentPosition % 10 === 9) {
-      currentPosition += 1;
-    } else if (
-      current === [10, 11, 12, 13] ||
-      current === [1, 11, 21, 31] ||
-      currentPosition % 10 === 8
-    ) {
-      currentPosition -= 2;
-    } else if (
-      current === [10, 11, 12, 13] ||
-      current === [1, 11, 21, 31] ||
-      currentPosition % 10 === 7
-    ) {
-      currentPosition -= 1;
-    } else if ((currentPosition + 1) % 10 === 8 || (currentPosition + 1) % 10 === 7) {
-      currentPosition -= 1;
-    }
-    console.log(current);
-    current = tetrominoes[random][currentRotation];
-    console.log(currentPosition);
 
+    current = tetrominoes[random][currentRotation];
+    checkRotation();
     drawGamePiece();
+  };
+
+  //Show next tetromino in the preview grid
+  const nextSquares = Array.from(document.querySelectorAll('.preview-grid div'));
+  // const previewWidth = 4;
+  let previewIndex = 0;
+
+  //First rotation of the tetromino to be placed in the preview
+  const previewTetromino = [
+    [0, 1, 5, 9], //l
+    [1, 2, 5, 9], //j
+    [1, 5, 6, 10], //s
+    [2, 5, 6, 9], //z
+    [5, 8, 9, 10], //t
+    [5, 6, 9, 10], //o
+    [1, 5, 9, 13], //i
+  ];
+
+  //Place the shapes in the preview grid
+  const previewShape = () => {
+    nextSquares.forEach((square) => {
+      square.classList.remove('tetromino');
+      square.style.backgroundImage = '';
+    });
+    previewTetromino[random].forEach((index) => {
+      nextSquares[previewIndex + index].classList.add('tetromino');
+      nextSquares[previewIndex + index].style.backgroundImage = colors[random];
+    });
   };
 });
