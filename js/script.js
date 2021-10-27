@@ -74,9 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentRotation = 0;
 
   //Picks random tetromino and displays in the first rotation position
-  //nextRandom passes tetromino from preview to game board
-  let random = nextRandom;
-  nextRandom = Math.floor(Math.random() * tetrominoes.length);
+  random = Math.floor(Math.random() * tetrominoes.length);
   let current = tetrominoes[random][currentRotation];
 
   //Drawing the Tetromino
@@ -102,7 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ) {
       current.forEach((index) => squares[currentPosition + index].classList.add('floor'));
       //Start a new tetromino falling
-      random = Math.floor(Math.random() * tetrominoes.length);
+      //nextRandom passes tetromino from preview to game board
+      random = nextRandom;
+      nextRandom = Math.floor(Math.random() * tetrominoes.length);
       current = tetrominoes[random][currentRotation];
       currentPosition = 4;
       drawGamePiece();
@@ -210,9 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
       square.classList.remove('tetromino');
       square.style.backgroundImage = '';
     });
-    previewTetromino[random].forEach((index) => {
+    previewTetromino[nextRandom].forEach((index) => {
       nextSquares[previewIndex + index].classList.add('tetromino');
-      nextSquares[previewIndex + index].style.backgroundImage = colors[random];
+      nextSquares[previewIndex + index].style.backgroundImage = colors[nextRandom];
     });
   };
 });
