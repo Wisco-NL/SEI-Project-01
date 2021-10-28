@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
       drawGamePiece();
       previewShape();
       score();
+      gameOver();
     }
   };
 
@@ -220,26 +221,29 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   //Removes start screen and starts game.
-  startScreen.addEventListener('click', () => {
-    if (timer) {
-      clearInterval(timer);
-      timer = null;
-    } else {
-      drawGamePiece();
-      moveTimer = setInterval(down, 1000);
-      nextRandom = Math.floor(Math.random() * tetrominoes.length);
-      startGame.style.display = 'none';
-      previewShape();
-    }
-  });
+  const starter = () => {
+    startScreen.addEventListener('click', () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      } else {
+        drawGamePiece();
+        moveTimer = setInterval(down, 1000);
+        nextRandom = Math.floor(Math.random() * tetrominoes.length);
+        startGame.style.display = 'none';
+        previewShape();
+      }
+    });
+  };
 
+  //Keeps track of current score
   const score = () => {
     for (let i = 0; i < 199; i += 10) {
       const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9];
 
       if (row.every((index) => squares[index].classList.contains('floor'))) {
         totalScore += 10;
-        displayScore.innerHTML = totalScore;
+        displayScore.innerHTML = `Score: ${totalScore}`;
         row.forEach((index) => {
           squares[index].classList.remove('floor');
           squares[index].classList.remove('tetromino');
@@ -251,4 +255,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   };
+  //game over
+  const gameOver = () => {
+    if (current.some((index) => squares[currentPosition + index].classList.contains('floor'))) {
+      displayScore.innerHTML = 'Game Over';
+      clearInterval(moveTimer);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    }
+  };
+  starter();
 });
