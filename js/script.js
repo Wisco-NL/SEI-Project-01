@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const gameboard = document.querySelector('.gameboard');
+  const gameBoard = document.querySelector('.gameboard');
   let squares = Array.from(document.querySelectorAll('.gameboard div'));
   const startScreen = document.getElementById('start');
   const startGame = document.querySelector('.start-screen');
+  const displayScore = document.querySelector('.display-score');
   let nextRandom = 0;
   let timer;
+  let totalScore = 0;
   const colors = [
     'url(images/blue-tetromino.png)',
     'url(images/grey-tetromino.png)',
@@ -110,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentPosition = 4;
       drawGamePiece();
       previewShape();
+      score();
     }
   };
 
@@ -229,4 +232,23 @@ document.addEventListener('DOMContentLoaded', () => {
       previewShape();
     }
   });
+
+  const score = () => {
+    for (let i = 0; i < 199; i += 10) {
+      const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9];
+
+      if (row.every((index) => squares[index].classList.contains('floor'))) {
+        totalScore += 10;
+        displayScore.innerHTML = totalScore;
+        row.forEach((index) => {
+          squares[index].classList.remove('floor');
+          squares[index].classList.remove('tetromino');
+          squares[index].style.backgroundImage = '';
+        });
+        const squaresRemoved = squares.splice(i, 10);
+        squares = [...squaresRemoved, ...squares];
+        squares.forEach((cell) => gameBoard.appendChild(cell));
+      }
+    }
+  };
 });
