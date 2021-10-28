@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let squares = Array.from(document.querySelectorAll('.gameboard div'));
   const startScreen = document.getElementById('start');
   const startGame = document.querySelector('.start-screen');
-  const displayScore = document.querySelector('.display-score');
+  const displayScore = document.querySelector('.score');
   let nextRandom = 0;
   let timer;
   let totalScore = 0;
