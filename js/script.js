@@ -216,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  //Removes start screen and starts game.
   startScreen.addEventListener('click', () => {
     if (timer) {
       clearInterval(timer);
