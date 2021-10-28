@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   const gameboard = document.querySelector('.gameboard');
   let squares = Array.from(document.querySelectorAll('.gameboard div'));
+  const startScreen = document.getElementById('start');
+  const startGame = document.querySelector('.start-screen');
   let nextRandom = 0;
+  let timer;
   const colors = [
     'url(images/blue-tetromino.png)',
     'url(images/grey-tetromino.png)',
@@ -129,11 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
     undrawGamePiece();
     currentPosition += 10;
     drawGamePiece();
-    previewShape();
     gameBoardFloor();
   };
-
-  moveTimer = setInterval(down, 1000);
 
   //Moving the tetromino left
   const left = () => {
@@ -215,4 +215,17 @@ document.addEventListener('DOMContentLoaded', () => {
       nextSquares[previewIndex + index].style.backgroundImage = colors[nextRandom];
     });
   };
+
+  startScreen.addEventListener('click', () => {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    } else {
+      drawGamePiece();
+      moveTimer = setInterval(down, 1000);
+      nextRandom = Math.floor(Math.random() * tetrominoes.length);
+      startGame.style.display = 'none';
+      previewShape();
+    }
+  });
 });
