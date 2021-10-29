@@ -105,6 +105,15 @@ body {
   outline: none;
 }
 
+.instructions {
+  color: white;
+  font-size: 18px;
+}
+
+.instructions ul li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
 .gameboard div {
   height: 20px;
   width: 20px;

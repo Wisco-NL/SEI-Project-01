@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (row.every((index) => squares[index].classList.contains('floor'))) {
         totalScore += 10;
-        displayScore.innerHTML = `Score: ${totalScore}`;
+        displayScore.textContent = `Score: ${totalScore}`;
         row.forEach((index) => {
           squares[index].classList.remove('floor');
           squares[index].classList.remove('tetromino');
