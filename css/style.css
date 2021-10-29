@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');
-html {
-  box-sizing: border-box;
-  font-size: 16px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&family=VT323&display=swap');
 
 *,
 *:before,
@@ -97,7 +93,7 @@ body {
   outline: none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   transition: all 0.1s ease-in-out;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'VT323', monospace;
   font-size: 24px;
 }
 
@@ -117,13 +113,23 @@ body {
 .score {
   position: absolute;
   top: 33%;
-  right: 37%;
+  right: 40%;
   width: 160px;
   height: 50px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'VT323', monospace;
   font-size: 25px;
   color: #fff;
   text-align: center;
+}
+
+.game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'VT323', monospace;
+  font-size: 100px;
+  color: #fff;
 }
 
 .preview-grid {

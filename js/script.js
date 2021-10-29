@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const startScreen = document.getElementById('start');
   const startGame = document.querySelector('.start-screen');
   const displayScore = document.querySelector('.score');
+  const gameOverDisplay = document.querySelector('.game-over');
   let nextRandom = 0;
   let timer;
   let totalScore = 0;
@@ -258,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //game over
   const gameOver = () => {
     if (current.some((index) => squares[currentPosition + index].classList.contains('floor'))) {
-      displayScore.innerHTML = 'Game Over';
+      gameOverDisplay.textContent = 'Game Over';
       clearInterval(moveTimer);
       setTimeout(() => {
         window.location.reload();
