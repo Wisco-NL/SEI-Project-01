@@ -3,6 +3,7 @@
 Make a game that I don't want to make.
 
 ![screenshot](game.png)
+[Live Demo Link](https://wisco-nl.github.io/SEI-Project-01/)
 
 ## Tech used for this project.
 
