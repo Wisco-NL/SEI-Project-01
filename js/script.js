@@ -238,6 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   //Keeps track of current score
+  //for loop to
   const score = () => {
     for (let i = 0; i < 199; i += 10) {
       const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9];
